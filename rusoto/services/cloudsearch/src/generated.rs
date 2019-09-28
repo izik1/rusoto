@@ -5646,30 +5646,34 @@ impl CloudSearch for CloudSearchClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = BuildSuggestersResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = BuildSuggestersResponseDeserializer::deserialize(
-                        "BuildSuggestersResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = BuildSuggestersResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = BuildSuggestersResponseDeserializer::deserialize(
+                            "BuildSuggestersResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -5700,30 +5704,34 @@ impl CloudSearch for CloudSearchClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = CreateDomainResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = CreateDomainResponseDeserializer::deserialize(
-                        "CreateDomainResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = CreateDomainResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = CreateDomainResponseDeserializer::deserialize(
+                            "CreateDomainResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -5754,30 +5762,34 @@ impl CloudSearch for CloudSearchClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = DefineAnalysisSchemeResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = DefineAnalysisSchemeResponseDeserializer::deserialize(
-                        "DefineAnalysisSchemeResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = DefineAnalysisSchemeResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = DefineAnalysisSchemeResponseDeserializer::deserialize(
+                            "DefineAnalysisSchemeResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -5808,30 +5820,34 @@ impl CloudSearch for CloudSearchClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = DefineExpressionResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = DefineExpressionResponseDeserializer::deserialize(
-                        "DefineExpressionResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = DefineExpressionResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = DefineExpressionResponseDeserializer::deserialize(
+                            "DefineExpressionResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -5862,30 +5878,34 @@ impl CloudSearch for CloudSearchClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = DefineIndexFieldResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = DefineIndexFieldResponseDeserializer::deserialize(
-                        "DefineIndexFieldResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = DefineIndexFieldResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = DefineIndexFieldResponseDeserializer::deserialize(
+                            "DefineIndexFieldResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -5916,30 +5936,34 @@ impl CloudSearch for CloudSearchClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = DefineSuggesterResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = DefineSuggesterResponseDeserializer::deserialize(
-                        "DefineSuggesterResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = DefineSuggesterResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = DefineSuggesterResponseDeserializer::deserialize(
+                            "DefineSuggesterResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -5970,30 +5994,34 @@ impl CloudSearch for CloudSearchClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = DeleteAnalysisSchemeResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = DeleteAnalysisSchemeResponseDeserializer::deserialize(
-                        "DeleteAnalysisSchemeResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = DeleteAnalysisSchemeResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = DeleteAnalysisSchemeResponseDeserializer::deserialize(
+                            "DeleteAnalysisSchemeResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -6024,30 +6052,34 @@ impl CloudSearch for CloudSearchClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = DeleteDomainResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = DeleteDomainResponseDeserializer::deserialize(
-                        "DeleteDomainResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = DeleteDomainResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = DeleteDomainResponseDeserializer::deserialize(
+                            "DeleteDomainResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -6078,30 +6110,34 @@ impl CloudSearch for CloudSearchClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = DeleteExpressionResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = DeleteExpressionResponseDeserializer::deserialize(
-                        "DeleteExpressionResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = DeleteExpressionResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = DeleteExpressionResponseDeserializer::deserialize(
+                            "DeleteExpressionResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -6132,30 +6168,34 @@ impl CloudSearch for CloudSearchClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = DeleteIndexFieldResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = DeleteIndexFieldResponseDeserializer::deserialize(
-                        "DeleteIndexFieldResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = DeleteIndexFieldResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = DeleteIndexFieldResponseDeserializer::deserialize(
+                            "DeleteIndexFieldResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -6186,30 +6226,34 @@ impl CloudSearch for CloudSearchClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = DeleteSuggesterResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = DeleteSuggesterResponseDeserializer::deserialize(
-                        "DeleteSuggesterResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = DeleteSuggesterResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = DeleteSuggesterResponseDeserializer::deserialize(
+                            "DeleteSuggesterResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -6240,30 +6284,34 @@ impl CloudSearch for CloudSearchClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = DescribeAnalysisSchemesResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = DescribeAnalysisSchemesResponseDeserializer::deserialize(
-                        "DescribeAnalysisSchemesResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = DescribeAnalysisSchemesResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = DescribeAnalysisSchemesResponseDeserializer::deserialize(
+                            "DescribeAnalysisSchemesResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -6296,30 +6344,34 @@ impl CloudSearch for CloudSearchClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = DescribeAvailabilityOptionsResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = DescribeAvailabilityOptionsResponseDeserializer::deserialize(
-                        "DescribeAvailabilityOptionsResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = DescribeAvailabilityOptionsResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = DescribeAvailabilityOptionsResponseDeserializer::deserialize(
+                            "DescribeAvailabilityOptionsResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -6350,30 +6402,34 @@ impl CloudSearch for CloudSearchClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = DescribeDomainsResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = DescribeDomainsResponseDeserializer::deserialize(
-                        "DescribeDomainsResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = DescribeDomainsResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = DescribeDomainsResponseDeserializer::deserialize(
+                            "DescribeDomainsResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -6404,30 +6460,34 @@ impl CloudSearch for CloudSearchClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = DescribeExpressionsResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = DescribeExpressionsResponseDeserializer::deserialize(
-                        "DescribeExpressionsResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = DescribeExpressionsResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = DescribeExpressionsResponseDeserializer::deserialize(
+                            "DescribeExpressionsResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -6458,30 +6518,34 @@ impl CloudSearch for CloudSearchClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = DescribeIndexFieldsResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = DescribeIndexFieldsResponseDeserializer::deserialize(
-                        "DescribeIndexFieldsResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = DescribeIndexFieldsResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = DescribeIndexFieldsResponseDeserializer::deserialize(
+                            "DescribeIndexFieldsResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -6512,30 +6576,34 @@ impl CloudSearch for CloudSearchClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = DescribeScalingParametersResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = DescribeScalingParametersResponseDeserializer::deserialize(
-                        "DescribeScalingParametersResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = DescribeScalingParametersResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = DescribeScalingParametersResponseDeserializer::deserialize(
+                            "DescribeScalingParametersResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -6569,30 +6637,34 @@ impl CloudSearch for CloudSearchClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = DescribeServiceAccessPoliciesResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = DescribeServiceAccessPoliciesResponseDeserializer::deserialize(
-                        "DescribeServiceAccessPoliciesResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = DescribeServiceAccessPoliciesResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = DescribeServiceAccessPoliciesResponseDeserializer::deserialize(
+                            "DescribeServiceAccessPoliciesResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -6623,30 +6695,34 @@ impl CloudSearch for CloudSearchClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = DescribeSuggestersResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = DescribeSuggestersResponseDeserializer::deserialize(
-                        "DescribeSuggestersResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = DescribeSuggestersResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = DescribeSuggestersResponseDeserializer::deserialize(
+                            "DescribeSuggestersResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -6677,30 +6753,34 @@ impl CloudSearch for CloudSearchClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = IndexDocumentsResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = IndexDocumentsResponseDeserializer::deserialize(
-                        "IndexDocumentsResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = IndexDocumentsResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = IndexDocumentsResponseDeserializer::deserialize(
+                            "IndexDocumentsResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -6728,30 +6808,34 @@ impl CloudSearch for CloudSearchClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = ListDomainNamesResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = ListDomainNamesResponseDeserializer::deserialize(
-                        "ListDomainNamesResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = ListDomainNamesResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = ListDomainNamesResponseDeserializer::deserialize(
+                            "ListDomainNamesResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -6782,30 +6866,34 @@ impl CloudSearch for CloudSearchClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = UpdateAvailabilityOptionsResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = UpdateAvailabilityOptionsResponseDeserializer::deserialize(
-                        "UpdateAvailabilityOptionsResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = UpdateAvailabilityOptionsResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = UpdateAvailabilityOptionsResponseDeserializer::deserialize(
+                            "UpdateAvailabilityOptionsResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -6836,30 +6924,34 @@ impl CloudSearch for CloudSearchClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = UpdateScalingParametersResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = UpdateScalingParametersResponseDeserializer::deserialize(
-                        "UpdateScalingParametersResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = UpdateScalingParametersResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = UpdateScalingParametersResponseDeserializer::deserialize(
+                            "UpdateScalingParametersResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -6892,30 +6984,34 @@ impl CloudSearch for CloudSearchClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = UpdateServiceAccessPoliciesResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = UpdateServiceAccessPoliciesResponseDeserializer::deserialize(
-                        "UpdateServiceAccessPoliciesResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = UpdateServiceAccessPoliciesResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = UpdateServiceAccessPoliciesResponseDeserializer::deserialize(
+                            "UpdateServiceAccessPoliciesResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 }

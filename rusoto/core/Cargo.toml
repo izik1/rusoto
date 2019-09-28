@@ -30,7 +30,7 @@ bytes = "0.4.12"
 futures-preview = { version = "0.3.0-alpha.18", features = ["async-await", "nightly"] }
 hmac = "0.5.0"
 http = "0.1.17"
-hyper = { git = "https://github.com/hyperium/hyper.git", branch = "master" }
+hyper = { git = "https://github.com/hyperium/hyper.git", branch = "master", features = ["unstable-stream"] }
 hyper-rustls = { git = "https://github.com/dbcfd/hyper-rustls.git", branch = "futures", optional = true }
 hyper-tls = { git = "https://github.com/dbcfd/hyper-tls.git", branch = "tokio-alpha4", optional = true }
 lazy_static = "1.0"

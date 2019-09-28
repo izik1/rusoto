@@ -12766,7 +12766,7 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            futures::future::ready(::std::mem::drop(response)).boxed()
+            futures::future::ready(Ok(::std::mem::drop(response))).boxed()
         })
     }
 
@@ -12802,30 +12802,34 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = AddSourceIdentifierToSubscriptionResult::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = AddSourceIdentifierToSubscriptionResultDeserializer::deserialize(
-                        "AddSourceIdentifierToSubscriptionResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = AddSourceIdentifierToSubscriptionResult::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = AddSourceIdentifierToSubscriptionResultDeserializer::deserialize(
+                            "AddSourceIdentifierToSubscriptionResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -12856,7 +12860,7 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            futures::future::ready(::std::mem::drop(response)).boxed()
+            futures::future::ready(Ok(::std::mem::drop(response))).boxed()
         })
     }
 
@@ -12889,30 +12893,34 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = ApplyPendingMaintenanceActionResult::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = ApplyPendingMaintenanceActionResultDeserializer::deserialize(
-                        "ApplyPendingMaintenanceActionResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = ApplyPendingMaintenanceActionResult::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = ApplyPendingMaintenanceActionResultDeserializer::deserialize(
+                            "ApplyPendingMaintenanceActionResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -12945,30 +12953,34 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = CopyDBClusterParameterGroupResult::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = CopyDBClusterParameterGroupResultDeserializer::deserialize(
-                        "CopyDBClusterParameterGroupResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = CopyDBClusterParameterGroupResult::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = CopyDBClusterParameterGroupResultDeserializer::deserialize(
+                            "CopyDBClusterParameterGroupResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -12999,30 +13011,34 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = CopyDBClusterSnapshotResult::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = CopyDBClusterSnapshotResultDeserializer::deserialize(
-                        "CopyDBClusterSnapshotResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = CopyDBClusterSnapshotResult::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = CopyDBClusterSnapshotResultDeserializer::deserialize(
+                            "CopyDBClusterSnapshotResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -13053,30 +13069,34 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = CopyDBParameterGroupResult::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = CopyDBParameterGroupResultDeserializer::deserialize(
-                        "CopyDBParameterGroupResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = CopyDBParameterGroupResult::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = CopyDBParameterGroupResultDeserializer::deserialize(
+                            "CopyDBParameterGroupResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -13107,30 +13127,34 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = CreateDBClusterResult::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = CreateDBClusterResultDeserializer::deserialize(
-                        "CreateDBClusterResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = CreateDBClusterResult::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = CreateDBClusterResultDeserializer::deserialize(
+                            "CreateDBClusterResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -13163,30 +13187,34 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = CreateDBClusterParameterGroupResult::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = CreateDBClusterParameterGroupResultDeserializer::deserialize(
-                        "CreateDBClusterParameterGroupResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = CreateDBClusterParameterGroupResult::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = CreateDBClusterParameterGroupResultDeserializer::deserialize(
+                            "CreateDBClusterParameterGroupResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -13217,30 +13245,34 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = CreateDBClusterSnapshotResult::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = CreateDBClusterSnapshotResultDeserializer::deserialize(
-                        "CreateDBClusterSnapshotResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = CreateDBClusterSnapshotResult::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = CreateDBClusterSnapshotResultDeserializer::deserialize(
+                            "CreateDBClusterSnapshotResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -13271,30 +13303,34 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = CreateDBInstanceResult::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = CreateDBInstanceResultDeserializer::deserialize(
-                        "CreateDBInstanceResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = CreateDBInstanceResult::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = CreateDBInstanceResultDeserializer::deserialize(
+                            "CreateDBInstanceResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -13325,30 +13361,34 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = CreateDBParameterGroupResult::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = CreateDBParameterGroupResultDeserializer::deserialize(
-                        "CreateDBParameterGroupResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = CreateDBParameterGroupResult::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = CreateDBParameterGroupResultDeserializer::deserialize(
+                            "CreateDBParameterGroupResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -13379,30 +13419,34 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = CreateDBSubnetGroupResult::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = CreateDBSubnetGroupResultDeserializer::deserialize(
-                        "CreateDBSubnetGroupResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = CreateDBSubnetGroupResult::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = CreateDBSubnetGroupResultDeserializer::deserialize(
+                            "CreateDBSubnetGroupResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -13433,30 +13477,34 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = CreateEventSubscriptionResult::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = CreateEventSubscriptionResultDeserializer::deserialize(
-                        "CreateEventSubscriptionResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = CreateEventSubscriptionResult::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = CreateEventSubscriptionResultDeserializer::deserialize(
+                            "CreateEventSubscriptionResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -13487,30 +13535,34 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = DeleteDBClusterResult::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = DeleteDBClusterResultDeserializer::deserialize(
-                        "DeleteDBClusterResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = DeleteDBClusterResult::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = DeleteDBClusterResultDeserializer::deserialize(
+                            "DeleteDBClusterResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -13543,7 +13595,7 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            futures::future::ready(::std::mem::drop(response)).boxed()
+            futures::future::ready(Ok(::std::mem::drop(response))).boxed()
         })
     }
 
@@ -13574,30 +13626,34 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = DeleteDBClusterSnapshotResult::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = DeleteDBClusterSnapshotResultDeserializer::deserialize(
-                        "DeleteDBClusterSnapshotResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = DeleteDBClusterSnapshotResult::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = DeleteDBClusterSnapshotResultDeserializer::deserialize(
+                            "DeleteDBClusterSnapshotResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -13628,30 +13684,34 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = DeleteDBInstanceResult::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = DeleteDBInstanceResultDeserializer::deserialize(
-                        "DeleteDBInstanceResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = DeleteDBInstanceResult::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = DeleteDBInstanceResultDeserializer::deserialize(
+                            "DeleteDBInstanceResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -13682,7 +13742,7 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            futures::future::ready(::std::mem::drop(response)).boxed()
+            futures::future::ready(Ok(::std::mem::drop(response))).boxed()
         })
     }
 
@@ -13713,7 +13773,7 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            futures::future::ready(::std::mem::drop(response)).boxed()
+            futures::future::ready(Ok(::std::mem::drop(response))).boxed()
         })
     }
 
@@ -13744,30 +13804,34 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = DeleteEventSubscriptionResult::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = DeleteEventSubscriptionResultDeserializer::deserialize(
-                        "DeleteEventSubscriptionResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = DeleteEventSubscriptionResult::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = DeleteEventSubscriptionResultDeserializer::deserialize(
+                            "DeleteEventSubscriptionResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -13802,30 +13866,34 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = DBClusterParameterGroupsMessage::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = DBClusterParameterGroupsMessageDeserializer::deserialize(
-                        "DescribeDBClusterParameterGroupsResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = DBClusterParameterGroupsMessage::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = DBClusterParameterGroupsMessageDeserializer::deserialize(
+                            "DescribeDBClusterParameterGroupsResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -13858,30 +13926,34 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = DBClusterParameterGroupDetails::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = DBClusterParameterGroupDetailsDeserializer::deserialize(
-                        "DescribeDBClusterParametersResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = DBClusterParameterGroupDetails::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = DBClusterParameterGroupDetailsDeserializer::deserialize(
+                            "DescribeDBClusterParametersResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -13919,30 +13991,35 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = DescribeDBClusterSnapshotAttributesResult::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = DescribeDBClusterSnapshotAttributesResultDeserializer::deserialize(
-                        "DescribeDBClusterSnapshotAttributesResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = DescribeDBClusterSnapshotAttributesResult::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result =
+                            DescribeDBClusterSnapshotAttributesResultDeserializer::deserialize(
+                                "DescribeDBClusterSnapshotAttributesResult",
+                                &mut stack,
+                            )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -13975,30 +14052,34 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = DBClusterSnapshotMessage::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = DBClusterSnapshotMessageDeserializer::deserialize(
-                        "DescribeDBClusterSnapshotsResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = DBClusterSnapshotMessage::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = DBClusterSnapshotMessageDeserializer::deserialize(
+                            "DescribeDBClusterSnapshotsResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -14029,30 +14110,34 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = DBClusterMessage::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = DBClusterMessageDeserializer::deserialize(
-                        "DescribeDBClustersResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = DBClusterMessage::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = DBClusterMessageDeserializer::deserialize(
+                            "DescribeDBClustersResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -14083,30 +14168,34 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = DBEngineVersionMessage::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = DBEngineVersionMessageDeserializer::deserialize(
-                        "DescribeDBEngineVersionsResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = DBEngineVersionMessage::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = DBEngineVersionMessageDeserializer::deserialize(
+                            "DescribeDBEngineVersionsResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -14137,30 +14226,34 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = DBInstanceMessage::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = DBInstanceMessageDeserializer::deserialize(
-                        "DescribeDBInstancesResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = DBInstanceMessage::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = DBInstanceMessageDeserializer::deserialize(
+                            "DescribeDBInstancesResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -14191,30 +14284,34 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = DBParameterGroupsMessage::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = DBParameterGroupsMessageDeserializer::deserialize(
-                        "DescribeDBParameterGroupsResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = DBParameterGroupsMessage::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = DBParameterGroupsMessageDeserializer::deserialize(
+                            "DescribeDBParameterGroupsResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -14245,30 +14342,34 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = DBParameterGroupDetails::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = DBParameterGroupDetailsDeserializer::deserialize(
-                        "DescribeDBParametersResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = DBParameterGroupDetails::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = DBParameterGroupDetailsDeserializer::deserialize(
+                            "DescribeDBParametersResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -14299,30 +14400,34 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = DBSubnetGroupMessage::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = DBSubnetGroupMessageDeserializer::deserialize(
-                        "DescribeDBSubnetGroupsResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = DBSubnetGroupMessage::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = DBSubnetGroupMessageDeserializer::deserialize(
+                            "DescribeDBSubnetGroupsResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -14360,30 +14465,35 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = DescribeEngineDefaultClusterParametersResult::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = DescribeEngineDefaultClusterParametersResultDeserializer::deserialize(
-                        "DescribeEngineDefaultClusterParametersResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = DescribeEngineDefaultClusterParametersResult::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result =
+                            DescribeEngineDefaultClusterParametersResultDeserializer::deserialize(
+                                "DescribeEngineDefaultClusterParametersResult",
+                                &mut stack,
+                            )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -14419,30 +14529,34 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = DescribeEngineDefaultParametersResult::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = DescribeEngineDefaultParametersResultDeserializer::deserialize(
-                        "DescribeEngineDefaultParametersResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = DescribeEngineDefaultParametersResult::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = DescribeEngineDefaultParametersResultDeserializer::deserialize(
+                            "DescribeEngineDefaultParametersResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -14473,30 +14587,34 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = EventCategoriesMessage::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = EventCategoriesMessageDeserializer::deserialize(
-                        "DescribeEventCategoriesResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = EventCategoriesMessage::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = EventCategoriesMessageDeserializer::deserialize(
+                            "DescribeEventCategoriesResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -14529,30 +14647,34 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = EventSubscriptionsMessage::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = EventSubscriptionsMessageDeserializer::deserialize(
-                        "DescribeEventSubscriptionsResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = EventSubscriptionsMessage::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = EventSubscriptionsMessageDeserializer::deserialize(
+                            "DescribeEventSubscriptionsResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -14583,28 +14705,34 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = EventsMessage::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result =
-                        EventsMessageDeserializer::deserialize("DescribeEventsResult", &mut stack)?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = EventsMessage::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = EventsMessageDeserializer::deserialize(
+                            "DescribeEventsResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -14640,30 +14768,34 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = OrderableDBInstanceOptionsMessage::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = OrderableDBInstanceOptionsMessageDeserializer::deserialize(
-                        "DescribeOrderableDBInstanceOptionsResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = OrderableDBInstanceOptionsMessage::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = OrderableDBInstanceOptionsMessageDeserializer::deserialize(
+                            "DescribeOrderableDBInstanceOptionsResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -14699,30 +14831,34 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = PendingMaintenanceActionsMessage::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = PendingMaintenanceActionsMessageDeserializer::deserialize(
-                        "DescribePendingMaintenanceActionsResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = PendingMaintenanceActionsMessage::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = PendingMaintenanceActionsMessageDeserializer::deserialize(
+                            "DescribePendingMaintenanceActionsResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -14760,30 +14896,35 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = DescribeValidDBInstanceModificationsResult::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = DescribeValidDBInstanceModificationsResultDeserializer::deserialize(
-                        "DescribeValidDBInstanceModificationsResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = DescribeValidDBInstanceModificationsResult::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result =
+                            DescribeValidDBInstanceModificationsResultDeserializer::deserialize(
+                                "DescribeValidDBInstanceModificationsResult",
+                                &mut stack,
+                            )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -14814,30 +14955,34 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = FailoverDBClusterResult::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = FailoverDBClusterResultDeserializer::deserialize(
-                        "FailoverDBClusterResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = FailoverDBClusterResult::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = FailoverDBClusterResultDeserializer::deserialize(
+                            "FailoverDBClusterResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -14868,30 +15013,34 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = TagListMessage::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = TagListMessageDeserializer::deserialize(
-                        "ListTagsForResourceResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = TagListMessage::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = TagListMessageDeserializer::deserialize(
+                            "ListTagsForResourceResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -14922,30 +15071,34 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = ModifyDBClusterResult::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = ModifyDBClusterResultDeserializer::deserialize(
-                        "ModifyDBClusterResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = ModifyDBClusterResult::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = ModifyDBClusterResultDeserializer::deserialize(
+                            "ModifyDBClusterResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -14978,30 +15131,34 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = DBClusterParameterGroupNameMessage::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = DBClusterParameterGroupNameMessageDeserializer::deserialize(
-                        "ModifyDBClusterParameterGroupResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = DBClusterParameterGroupNameMessage::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = DBClusterParameterGroupNameMessageDeserializer::deserialize(
+                            "ModifyDBClusterParameterGroupResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -15037,30 +15194,34 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = ModifyDBClusterSnapshotAttributeResult::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = ModifyDBClusterSnapshotAttributeResultDeserializer::deserialize(
-                        "ModifyDBClusterSnapshotAttributeResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = ModifyDBClusterSnapshotAttributeResult::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = ModifyDBClusterSnapshotAttributeResultDeserializer::deserialize(
+                            "ModifyDBClusterSnapshotAttributeResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -15091,30 +15252,34 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = ModifyDBInstanceResult::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = ModifyDBInstanceResultDeserializer::deserialize(
-                        "ModifyDBInstanceResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = ModifyDBInstanceResult::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = ModifyDBInstanceResultDeserializer::deserialize(
+                            "ModifyDBInstanceResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -15145,30 +15310,34 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = DBParameterGroupNameMessage::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = DBParameterGroupNameMessageDeserializer::deserialize(
-                        "ModifyDBParameterGroupResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = DBParameterGroupNameMessage::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = DBParameterGroupNameMessageDeserializer::deserialize(
+                            "ModifyDBParameterGroupResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -15199,30 +15368,34 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = ModifyDBSubnetGroupResult::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = ModifyDBSubnetGroupResultDeserializer::deserialize(
-                        "ModifyDBSubnetGroupResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = ModifyDBSubnetGroupResult::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = ModifyDBSubnetGroupResultDeserializer::deserialize(
+                            "ModifyDBSubnetGroupResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -15253,30 +15426,34 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = ModifyEventSubscriptionResult::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = ModifyEventSubscriptionResultDeserializer::deserialize(
-                        "ModifyEventSubscriptionResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = ModifyEventSubscriptionResult::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = ModifyEventSubscriptionResultDeserializer::deserialize(
+                            "ModifyEventSubscriptionResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -15309,30 +15486,34 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = PromoteReadReplicaDBClusterResult::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = PromoteReadReplicaDBClusterResultDeserializer::deserialize(
-                        "PromoteReadReplicaDBClusterResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = PromoteReadReplicaDBClusterResult::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = PromoteReadReplicaDBClusterResultDeserializer::deserialize(
+                            "PromoteReadReplicaDBClusterResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -15363,30 +15544,34 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = RebootDBInstanceResult::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = RebootDBInstanceResultDeserializer::deserialize(
-                        "RebootDBInstanceResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = RebootDBInstanceResult::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = RebootDBInstanceResultDeserializer::deserialize(
+                            "RebootDBInstanceResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -15417,7 +15602,7 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            futures::future::ready(::std::mem::drop(response)).boxed()
+            futures::future::ready(Ok(::std::mem::drop(response))).boxed()
         })
     }
 
@@ -15455,30 +15640,35 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = RemoveSourceIdentifierFromSubscriptionResult::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = RemoveSourceIdentifierFromSubscriptionResultDeserializer::deserialize(
-                        "RemoveSourceIdentifierFromSubscriptionResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = RemoveSourceIdentifierFromSubscriptionResult::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result =
+                            RemoveSourceIdentifierFromSubscriptionResultDeserializer::deserialize(
+                                "RemoveSourceIdentifierFromSubscriptionResult",
+                                &mut stack,
+                            )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -15509,7 +15699,7 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            futures::future::ready(::std::mem::drop(response)).boxed()
+            futures::future::ready(Ok(::std::mem::drop(response))).boxed()
         })
     }
 
@@ -15542,30 +15732,34 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = DBClusterParameterGroupNameMessage::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = DBClusterParameterGroupNameMessageDeserializer::deserialize(
-                        "ResetDBClusterParameterGroupResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = DBClusterParameterGroupNameMessage::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = DBClusterParameterGroupNameMessageDeserializer::deserialize(
+                            "ResetDBClusterParameterGroupResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -15596,30 +15790,34 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = DBParameterGroupNameMessage::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = DBParameterGroupNameMessageDeserializer::deserialize(
-                        "ResetDBParameterGroupResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = DBParameterGroupNameMessage::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = DBParameterGroupNameMessageDeserializer::deserialize(
+                            "ResetDBParameterGroupResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -15652,30 +15850,34 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = RestoreDBClusterFromSnapshotResult::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = RestoreDBClusterFromSnapshotResultDeserializer::deserialize(
-                        "RestoreDBClusterFromSnapshotResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = RestoreDBClusterFromSnapshotResult::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = RestoreDBClusterFromSnapshotResultDeserializer::deserialize(
+                            "RestoreDBClusterFromSnapshotResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -15708,30 +15910,34 @@ impl Neptune for NeptuneClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = RestoreDBClusterToPointInTimeResult::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = RestoreDBClusterToPointInTimeResultDeserializer::deserialize(
-                        "RestoreDBClusterToPointInTimeResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = RestoreDBClusterToPointInTimeResult::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = RestoreDBClusterToPointInTimeResultDeserializer::deserialize(
+                            "RestoreDBClusterToPointInTimeResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 }

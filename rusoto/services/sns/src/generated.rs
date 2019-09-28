@@ -5084,7 +5084,7 @@ impl Sns for SnsClient {
                     .boxed();
             }
 
-            futures::future::ready(::std::mem::drop(response)).boxed()
+            futures::future::ready(Ok(::std::mem::drop(response))).boxed()
         })
     }
 
@@ -5117,30 +5117,34 @@ impl Sns for SnsClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = CheckIfPhoneNumberIsOptedOutResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = CheckIfPhoneNumberIsOptedOutResponseDeserializer::deserialize(
-                        "CheckIfPhoneNumberIsOptedOutResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = CheckIfPhoneNumberIsOptedOutResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = CheckIfPhoneNumberIsOptedOutResponseDeserializer::deserialize(
+                            "CheckIfPhoneNumberIsOptedOutResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -5171,30 +5175,34 @@ impl Sns for SnsClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = ConfirmSubscriptionResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = ConfirmSubscriptionResponseDeserializer::deserialize(
-                        "ConfirmSubscriptionResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = ConfirmSubscriptionResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = ConfirmSubscriptionResponseDeserializer::deserialize(
+                            "ConfirmSubscriptionResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -5225,30 +5233,34 @@ impl Sns for SnsClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = CreatePlatformApplicationResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = CreatePlatformApplicationResponseDeserializer::deserialize(
-                        "CreatePlatformApplicationResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = CreatePlatformApplicationResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = CreatePlatformApplicationResponseDeserializer::deserialize(
+                            "CreatePlatformApplicationResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -5279,30 +5291,34 @@ impl Sns for SnsClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = CreateEndpointResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = CreateEndpointResponseDeserializer::deserialize(
-                        "CreatePlatformEndpointResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = CreateEndpointResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = CreateEndpointResponseDeserializer::deserialize(
+                            "CreatePlatformEndpointResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -5333,30 +5349,34 @@ impl Sns for SnsClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = CreateTopicResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = CreateTopicResponseDeserializer::deserialize(
-                        "CreateTopicResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = CreateTopicResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = CreateTopicResponseDeserializer::deserialize(
+                            "CreateTopicResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -5384,7 +5404,7 @@ impl Sns for SnsClient {
                     .boxed();
             }
 
-            futures::future::ready(::std::mem::drop(response)).boxed()
+            futures::future::ready(Ok(::std::mem::drop(response))).boxed()
         })
     }
 
@@ -5415,7 +5435,7 @@ impl Sns for SnsClient {
                     .boxed();
             }
 
-            futures::future::ready(::std::mem::drop(response)).boxed()
+            futures::future::ready(Ok(::std::mem::drop(response))).boxed()
         })
     }
 
@@ -5443,7 +5463,7 @@ impl Sns for SnsClient {
                     .boxed();
             }
 
-            futures::future::ready(::std::mem::drop(response)).boxed()
+            futures::future::ready(Ok(::std::mem::drop(response))).boxed()
         })
     }
 
@@ -5474,30 +5494,34 @@ impl Sns for SnsClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = GetEndpointAttributesResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = GetEndpointAttributesResponseDeserializer::deserialize(
-                        "GetEndpointAttributesResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = GetEndpointAttributesResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = GetEndpointAttributesResponseDeserializer::deserialize(
+                            "GetEndpointAttributesResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -5533,30 +5557,34 @@ impl Sns for SnsClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = GetPlatformApplicationAttributesResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = GetPlatformApplicationAttributesResponseDeserializer::deserialize(
-                        "GetPlatformApplicationAttributesResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = GetPlatformApplicationAttributesResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = GetPlatformApplicationAttributesResponseDeserializer::deserialize(
+                            "GetPlatformApplicationAttributesResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -5587,30 +5615,34 @@ impl Sns for SnsClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = GetSMSAttributesResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = GetSMSAttributesResponseDeserializer::deserialize(
-                        "GetSMSAttributesResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = GetSMSAttributesResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = GetSMSAttributesResponseDeserializer::deserialize(
+                            "GetSMSAttributesResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -5641,30 +5673,34 @@ impl Sns for SnsClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = GetSubscriptionAttributesResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = GetSubscriptionAttributesResponseDeserializer::deserialize(
-                        "GetSubscriptionAttributesResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = GetSubscriptionAttributesResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = GetSubscriptionAttributesResponseDeserializer::deserialize(
+                            "GetSubscriptionAttributesResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -5695,30 +5731,34 @@ impl Sns for SnsClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = GetTopicAttributesResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = GetTopicAttributesResponseDeserializer::deserialize(
-                        "GetTopicAttributesResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = GetTopicAttributesResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = GetTopicAttributesResponseDeserializer::deserialize(
+                            "GetTopicAttributesResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -5756,30 +5796,35 @@ impl Sns for SnsClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = ListEndpointsByPlatformApplicationResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = ListEndpointsByPlatformApplicationResponseDeserializer::deserialize(
-                        "ListEndpointsByPlatformApplicationResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = ListEndpointsByPlatformApplicationResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result =
+                            ListEndpointsByPlatformApplicationResponseDeserializer::deserialize(
+                                "ListEndpointsByPlatformApplicationResult",
+                                &mut stack,
+                            )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -5810,30 +5855,34 @@ impl Sns for SnsClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = ListPhoneNumbersOptedOutResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = ListPhoneNumbersOptedOutResponseDeserializer::deserialize(
-                        "ListPhoneNumbersOptedOutResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = ListPhoneNumbersOptedOutResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = ListPhoneNumbersOptedOutResponseDeserializer::deserialize(
+                            "ListPhoneNumbersOptedOutResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -5864,30 +5913,34 @@ impl Sns for SnsClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = ListPlatformApplicationsResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = ListPlatformApplicationsResponseDeserializer::deserialize(
-                        "ListPlatformApplicationsResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = ListPlatformApplicationsResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = ListPlatformApplicationsResponseDeserializer::deserialize(
+                            "ListPlatformApplicationsResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -5918,30 +5971,34 @@ impl Sns for SnsClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = ListSubscriptionsResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = ListSubscriptionsResponseDeserializer::deserialize(
-                        "ListSubscriptionsResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = ListSubscriptionsResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = ListSubscriptionsResponseDeserializer::deserialize(
+                            "ListSubscriptionsResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -5972,30 +6029,34 @@ impl Sns for SnsClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = ListSubscriptionsByTopicResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = ListSubscriptionsByTopicResponseDeserializer::deserialize(
-                        "ListSubscriptionsByTopicResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = ListSubscriptionsByTopicResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = ListSubscriptionsByTopicResponseDeserializer::deserialize(
+                            "ListSubscriptionsByTopicResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -6026,30 +6087,34 @@ impl Sns for SnsClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = ListTagsForResourceResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = ListTagsForResourceResponseDeserializer::deserialize(
-                        "ListTagsForResourceResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = ListTagsForResourceResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = ListTagsForResourceResponseDeserializer::deserialize(
+                            "ListTagsForResourceResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -6080,30 +6145,34 @@ impl Sns for SnsClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = ListTopicsResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = ListTopicsResponseDeserializer::deserialize(
-                        "ListTopicsResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = ListTopicsResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = ListTopicsResponseDeserializer::deserialize(
+                            "ListTopicsResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -6134,30 +6203,34 @@ impl Sns for SnsClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = OptInPhoneNumberResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = OptInPhoneNumberResponseDeserializer::deserialize(
-                        "OptInPhoneNumberResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = OptInPhoneNumberResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = OptInPhoneNumberResponseDeserializer::deserialize(
+                            "OptInPhoneNumberResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -6185,27 +6258,32 @@ impl Sns for SnsClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = PublishResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = PublishResponseDeserializer::deserialize("PublishResult", &mut stack)?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = PublishResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result =
+                            PublishResponseDeserializer::deserialize("PublishResult", &mut stack)?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -6236,7 +6314,7 @@ impl Sns for SnsClient {
                     .boxed();
             }
 
-            futures::future::ready(::std::mem::drop(response)).boxed()
+            futures::future::ready(Ok(::std::mem::drop(response))).boxed()
         })
     }
 
@@ -6267,7 +6345,7 @@ impl Sns for SnsClient {
                     .boxed();
             }
 
-            futures::future::ready(::std::mem::drop(response)).boxed()
+            futures::future::ready(Ok(::std::mem::drop(response))).boxed()
         })
     }
 
@@ -6302,7 +6380,7 @@ impl Sns for SnsClient {
                     .boxed();
             }
 
-            futures::future::ready(::std::mem::drop(response)).boxed()
+            futures::future::ready(Ok(::std::mem::drop(response))).boxed()
         })
     }
 
@@ -6333,30 +6411,34 @@ impl Sns for SnsClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = SetSMSAttributesResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = SetSMSAttributesResponseDeserializer::deserialize(
-                        "SetSMSAttributesResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = SetSMSAttributesResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = SetSMSAttributesResponseDeserializer::deserialize(
+                            "SetSMSAttributesResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -6387,7 +6469,7 @@ impl Sns for SnsClient {
                     .boxed();
             }
 
-            futures::future::ready(::std::mem::drop(response)).boxed()
+            futures::future::ready(Ok(::std::mem::drop(response))).boxed()
         })
     }
 
@@ -6418,7 +6500,7 @@ impl Sns for SnsClient {
                     .boxed();
             }
 
-            futures::future::ready(::std::mem::drop(response)).boxed()
+            futures::future::ready(Ok(::std::mem::drop(response))).boxed()
         })
     }
 
@@ -6446,28 +6528,34 @@ impl Sns for SnsClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = SubscribeResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result =
-                        SubscribeResponseDeserializer::deserialize("SubscribeResult", &mut stack)?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = SubscribeResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = SubscribeResponseDeserializer::deserialize(
+                            "SubscribeResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -6498,30 +6586,34 @@ impl Sns for SnsClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = TagResourceResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = TagResourceResponseDeserializer::deserialize(
-                        "TagResourceResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = TagResourceResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = TagResourceResponseDeserializer::deserialize(
+                            "TagResourceResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 
@@ -6549,7 +6641,7 @@ impl Sns for SnsClient {
                     .boxed();
             }
 
-            futures::future::ready(::std::mem::drop(response)).boxed()
+            futures::future::ready(Ok(::std::mem::drop(response))).boxed()
         })
     }
 
@@ -6580,30 +6672,34 @@ impl Sns for SnsClient {
                     .boxed();
             }
 
-            Box::new(response.buffer().from_err().and_then(move |response| {
-                let result;
+            response
+                .buffer()
+                .map(move |response| {
+                    let response = response?;
 
-                if response.body.is_empty() {
-                    result = UntagResourceResponse::default();
-                } else {
-                    let reader = EventReader::new_with_config(
-                        response.body.as_ref(),
-                        ParserConfig::new().trim_whitespace(true),
-                    );
-                    let mut stack = XmlResponse::new(reader.into_iter().peekable());
-                    let _start_document = stack.next();
-                    let actual_tag_name = peek_at_name(&mut stack)?;
-                    start_element(&actual_tag_name, &mut stack)?;
-                    result = UntagResourceResponseDeserializer::deserialize(
-                        "UntagResourceResult",
-                        &mut stack,
-                    )?;
-                    skip_tree(&mut stack);
-                    end_element(&actual_tag_name, &mut stack)?;
-                }
-                // parse non-payload
-                Ok(result)
-            }))
+                    let result;
+                    if response.body.is_empty() {
+                        result = UntagResourceResponse::default();
+                    } else {
+                        let reader = EventReader::new_with_config(
+                            response.body.as_ref(),
+                            ParserConfig::new().trim_whitespace(true),
+                        );
+                        let mut stack = XmlResponse::new(reader.into_iter().peekable());
+                        let _start_document = stack.next();
+                        let actual_tag_name = peek_at_name(&mut stack)?;
+                        start_element(&actual_tag_name, &mut stack)?;
+                        result = UntagResourceResponseDeserializer::deserialize(
+                            "UntagResourceResult",
+                            &mut stack,
+                        )?;
+                        skip_tree(&mut stack);
+                        end_element(&actual_tag_name, &mut stack)?;
+                    }
+                    // parse non-payload
+                    Ok(result)
+                })
+                .boxed()
         })
     }
 }

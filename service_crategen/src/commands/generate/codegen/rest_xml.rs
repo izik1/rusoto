@@ -49,8 +49,8 @@ impl GenerateProtocol for RestXmlGenerator {
 
                         self.client.sign_and_dispatch(request, |response| {{
                             if !response.status.is_success() {{
-                                return response.buffer().from_err().and_then(|response| {{
-                                    Err({error_type}::from_response(response))
+                                return response.buffer().map(|response| {{
+                                    Err({error_type}::from_response(response?))
                                 }}).boxed();
                             }}
 

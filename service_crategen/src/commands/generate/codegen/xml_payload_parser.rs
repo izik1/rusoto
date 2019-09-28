@@ -43,7 +43,7 @@ pub fn generate_response_parser(
     parse_non_payload: &str,
 ) -> String {
     if operation.output.is_none() {
-        return "futures::future::ready(::std::mem::drop(response)).boxed()".to_string();
+        return "futures::future::ready(Ok(::std::mem::drop(response))).boxed()".to_string();
     }
 
     let shape_name = &operation
@@ -131,7 +131,7 @@ fn payload_body_parser(
                 let mut result = {output_shape}::default();
                 result.{payload_member} = Some(response.body);
                 {parse_non_payload}
-                futures::future::ready(result).boxed()
+                futures::future::ready(Ok(result)).boxed()
                 ",
                     output_shape = output_shape,
                     payload_member = payload_member.to_snake_case(),
@@ -139,13 +139,11 @@ fn payload_body_parser(
         },
         _ => {
             format!("
-                response.buffer().map(move |try_response| {{
-                    try_response.map(move |response| {{
-                        let mut result = {output_shape}::default();
-                        result.{payload_member} = Some(String::from_utf8_lossy(response.body.as_ref()).into());
-                        {parse_non_payload}
-                        result
-                    }})
+                response.buffer().map(move |response| {{
+                    let mut result = {output_shape}::default();
+                    result.{payload_member} = Some(String::from_utf8_lossy(response?.body.as_ref()).into());
+                    {parse_non_payload}
+                    Ok(result)    
                 }}).boxed()
                 ",
                     output_shape = output_shape,
@@ -183,9 +181,10 @@ fn xml_body_parser(
     };
 
     format!(
-        "Box::new(response.buffer().from_err().and_then(move |response| {{
+        "response.buffer().map(move |response| {{
+            let response = response?;
+            
             {let_result}
-
             if response.body.is_empty() {{
                 result = {output_shape}::default();
             }} else {{
@@ -200,7 +199,7 @@ fn xml_body_parser(
             }}
             {parse_non_payload} // parse non-payload
             Ok(result)
-        }}))",
+        }}).boxed()",
         let_result = let_result,
         output_shape = output_shape,
         deserialize = deserialize,
